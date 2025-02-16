@@ -10,7 +10,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
   final FlutterSecureStorage storage = const FlutterSecureStorage();
 
-  AuthBloc({required this.authRepository}) : super(AuthInitial()) {}
+  AuthBloc({required this.authRepository}) : super(AuthInitial()) {
+    on<SignInRequest>(signInRequest);
+    on<SignOutRequest>(signOutRequested);
+    on<CheckAuthStatus>(checkAuthStatus);
+  }
 
   //Sign in and storing the JWT token securely
   Future<void> signInRequest(

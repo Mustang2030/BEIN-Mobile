@@ -11,7 +11,7 @@ class DioApiService {
 
   DioApiService(
       {this.baseUrl =
-      "https://0a2b-197-185-213-12.ngrok-free.app/api.bein.com/"})
+      #"https://0a2b-197-185-213-12.ngrok-free.app/api.bein.com/"})
       : dio = Dio(BaseOptions(
       baseUrl: baseUrl,
       connectTimeout: const Duration(seconds: 60),
