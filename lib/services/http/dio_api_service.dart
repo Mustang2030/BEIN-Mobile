@@ -9,17 +9,19 @@ class DioApiService {
   final Dio dio;
   final String baseUrl;
 
-  DioApiService(
-      {this.baseUrl =
-      #"https://0a2b-197-185-213-12.ngrok-free.app/api.bein.com/"})
-      : dio = Dio(BaseOptions(
-      baseUrl: baseUrl,
-      connectTimeout: const Duration(seconds: 60),
-      receiveTimeout: const Duration(seconds: 60),
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Authorization': 'jwdToken',
-      })) {
+  DioApiService({
+    this.baseUrl = "https://0a2b-197-185-213-12.ngrok-free.app/api.bein.com/",
+  }) : dio = Dio(
+         BaseOptions(
+           baseUrl: baseUrl,
+           connectTimeout: const Duration(seconds: 60),
+           receiveTimeout: const Duration(seconds: 60),
+           headers: {
+             'Content-Type': 'application/json',
+             // 'Authorization': 'jwdToken',
+           },
+         ),
+       ) {
     _initializeInterceptors();
   }
 
@@ -109,7 +111,9 @@ class DioApiService {
   }
 
   Future<Response> downloadRequest(
-      String endpoint, Map<String, dynamic> data) async {
+    String endpoint,
+    Map<String, dynamic> data,
+  ) async {
     try {
       Response response = await dio.download(endpoint, data);
       return response;
@@ -132,7 +136,9 @@ class DioApiService {
           // Log response data
           log("Response from ${response.requestOptions.uri}");
           log("Status code: ${response.statusCode}");
-          log("Response data: ${response.data}"); // Logs sensitive data; handle carefully
+          log(
+            "Response data: ${response.data}",
+          ); // Logs sensitive data; handle carefully
           handler.next(response);
         },
         onError: (DioException error, handler) {
